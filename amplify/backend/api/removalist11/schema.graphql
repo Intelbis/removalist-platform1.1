@@ -4,5 +4,4 @@ type Enquiry @model @auth(rules: [{allow: public}]) {
   description: String
   isComplete: Boolean!
   noBedrooms: String!
-}
- 
+} 
