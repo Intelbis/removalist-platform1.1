@@ -1,4 +1,22 @@
 {
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-removalist11-staging-81355-authRole",
+      "UnauthRoleArn": "arn:aws:iam::148852451613:role/amplify-removalist11-staging-81355-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::148852451613:role/amplify-removalist11-staging-81355-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-removalist11-staging-81355-deployment",
+      "UnauthRoleName": "amplify-removalist11-staging-81355-unauthRole",
+      "StackName": "amplify-removalist11-staging-81355",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:148852451613:stack/amplify-removalist11-staging-81355/80e33f30-3a4e-11ed-a403-0222a28851f8",
+      "AmplifyAppId": "d3nya2i2j7vkb"
+    },
+    "categories": {
+      "auth": {
+        "removalist11779dc440": {}
+      }
+    }
+  },
   "dev": {
     "awscloudformation": {
       "AuthRoleName": "amplify-removalist11-dev-81650-authRole",
