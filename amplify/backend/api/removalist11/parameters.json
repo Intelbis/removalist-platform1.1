@@ -1,0 +1,5 @@
+{
+  "AppSyncApiName": "removalist11",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false
+}
