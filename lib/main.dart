@@ -220,7 +220,14 @@ class EnquiryItem extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  Text(enquiry.description ?? 'No description'),
+
+                  Text(
+                    enquiry.noBedrooms,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+
+                  Text(enquiry.description ?? 'no bedrooms'),
                 ],
               ),
             ),
@@ -245,17 +252,21 @@ class AddEnquiryForm extends StatefulWidget {
 
 class _AddEnquiryFormState extends State<AddEnquiryForm> {
   final _nameController = TextEditingController();
+  final _noBedroomsController = TextEditingController();
   final _descriptionController = TextEditingController();
 
   Future<void> _saveEnquiry() async {
 
     final name = _nameController.text;
+    final noBedrooms = _noBedroomsController.text;
     final description = _descriptionController.text;
+
 
     // create a new Todo from the form values
     // `isComplete` is also required, but should start false in a new Todo
     final newEnquiry = Enquiry(
       name: name,
+      noBedrooms: noBedrooms,
       description: description.isNotEmpty ? description : null,
       isComplete: false,
     );
@@ -289,6 +300,11 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
                 controller: _nameController,
                 decoration:
                 const InputDecoration(filled: true, labelText: 'Name'),
+              ),
+              TextFormField(
+                controller: _noBedroomsController,
+                decoration:
+                const InputDecoration(filled: true, labelText: 'No. Bedrooms'),
               ),
               TextFormField(
                 controller: _descriptionController,
