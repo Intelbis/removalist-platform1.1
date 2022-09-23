@@ -32,7 +32,7 @@ class Enquiry extends Model {
   final String? _description;
   final bool? _isComplete;
   final int? _noBedrooms;
-  final TemporalDateTime? _movingDate;
+  final TemporalDate? _movingDate;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -87,7 +87,7 @@ class Enquiry extends Model {
     }
   }
   
-  TemporalDateTime get movingDate {
+  TemporalDate get movingDate {
     try {
       return _movingDate!;
     } catch(e) {
@@ -110,7 +110,7 @@ class Enquiry extends Model {
   
   const Enquiry._internal({required this.id, required name, description, required isComplete, required noBedrooms, required movingDate, createdAt, updatedAt}): _name = name, _description = description, _isComplete = isComplete, _noBedrooms = noBedrooms, _movingDate = movingDate, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Enquiry({String? id, required String name, String? description, required bool isComplete, required int noBedrooms, required TemporalDateTime movingDate}) {
+  factory Enquiry({String? id, required String name, String? description, required bool isComplete, required int noBedrooms, required TemporalDate movingDate}) {
     return Enquiry._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
@@ -157,7 +157,7 @@ class Enquiry extends Model {
     return buffer.toString();
   }
   
-  Enquiry copyWith({String? id, String? name, String? description, bool? isComplete, int? noBedrooms, TemporalDateTime? movingDate}) {
+  Enquiry copyWith({String? id, String? name, String? description, bool? isComplete, int? noBedrooms, TemporalDate? movingDate}) {
     return Enquiry._internal(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -173,7 +173,7 @@ class Enquiry extends Model {
       _description = json['description'],
       _isComplete = json['isComplete'],
       _noBedrooms = (json['noBedrooms'] as num?)?.toInt(),
-      _movingDate = json['movingDate'] != null ? TemporalDateTime.fromString(json['movingDate']) : null,
+      _movingDate = json['movingDate'] != null ? TemporalDate.fromString(json['movingDate']) : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
@@ -231,7 +231,7 @@ class Enquiry extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: Enquiry.MOVINGDATE,
       isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+      ofType: ModelFieldType(ModelFieldTypeEnum.date)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

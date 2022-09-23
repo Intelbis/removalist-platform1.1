@@ -276,6 +276,7 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
     final noBedrooms = _noBedroomsController.text;
     final movingDate = _movingDateController.text;
     final description = _descriptionController.text;
+    // final myTemporalDate = TemporalDate(myDateTime);
     
 
 
@@ -285,7 +286,7 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
       name: name,
       noBedrooms: int.tryParse(noBedrooms) ?? 0,
       // movingDate: movingDate,
-      movingDate: TemporalDateTime.fromString(movingDate),
+      movingDate: TemporalDate.fromString(movingDate),
       // datetime: movingDate,
       // noBedrooms: noBedrooms,
       // movingDate: movingDate,
