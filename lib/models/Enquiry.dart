@@ -32,6 +32,7 @@ class Enquiry extends Model {
   final String? _description;
   final bool? _isComplete;
   final int? _noBedrooms;
+  final TemporalDate? _movingDate;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -86,6 +87,19 @@ class Enquiry extends Model {
     }
   }
   
+  TemporalDate get movingDate {
+    try {
+      return _movingDate!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -94,15 +108,16 @@ class Enquiry extends Model {
     return _updatedAt;
   }
   
-  const Enquiry._internal({required this.id, required name, description, required isComplete, required noBedrooms, createdAt, updatedAt}): _name = name, _description = description, _isComplete = isComplete, _noBedrooms = noBedrooms, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Enquiry._internal({required this.id, required name, description, required isComplete, required noBedrooms, required movingDate, createdAt, updatedAt}): _name = name, _description = description, _isComplete = isComplete, _noBedrooms = noBedrooms, _movingDate = movingDate, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Enquiry({String? id, required String name, String? description, required bool isComplete, required int noBedrooms}) {
+  factory Enquiry({String? id, required String name, String? description, required bool isComplete, required int noBedrooms, required TemporalDate movingDate}) {
     return Enquiry._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
       description: description,
       isComplete: isComplete,
-      noBedrooms: noBedrooms);
+      noBedrooms: noBedrooms,
+      movingDate: movingDate);
   }
   
   bool equals(Object other) {
@@ -117,7 +132,8 @@ class Enquiry extends Model {
       _name == other._name &&
       _description == other._description &&
       _isComplete == other._isComplete &&
-      _noBedrooms == other._noBedrooms;
+      _noBedrooms == other._noBedrooms &&
+      _movingDate == other._movingDate;
   }
   
   @override
@@ -133,6 +149,7 @@ class Enquiry extends Model {
     buffer.write("description=" + "$_description" + ", ");
     buffer.write("isComplete=" + (_isComplete != null ? _isComplete!.toString() : "null") + ", ");
     buffer.write("noBedrooms=" + (_noBedrooms != null ? _noBedrooms!.toString() : "null") + ", ");
+    buffer.write("movingDate=" + (_movingDate != null ? _movingDate!.format() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -140,13 +157,14 @@ class Enquiry extends Model {
     return buffer.toString();
   }
   
-  Enquiry copyWith({String? id, String? name, String? description, bool? isComplete, int? noBedrooms}) {
+  Enquiry copyWith({String? id, String? name, String? description, bool? isComplete, int? noBedrooms, TemporalDate? movingDate}) {
     return Enquiry._internal(
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
       isComplete: isComplete ?? this.isComplete,
-      noBedrooms: noBedrooms ?? this.noBedrooms);
+      noBedrooms: noBedrooms ?? this.noBedrooms,
+      movingDate: movingDate ?? this.movingDate);
   }
   
   Enquiry.fromJson(Map<String, dynamic> json)  
@@ -155,11 +173,12 @@ class Enquiry extends Model {
       _description = json['description'],
       _isComplete = json['isComplete'],
       _noBedrooms = (json['noBedrooms'] as num?)?.toInt(),
+      _movingDate = json['movingDate'] != null ? TemporalDate.fromString(json['movingDate']) : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'description': _description, 'isComplete': _isComplete, 'noBedrooms': _noBedrooms, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'description': _description, 'isComplete': _isComplete, 'noBedrooms': _noBedrooms, 'movingDate': _movingDate?.format(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "id");
@@ -167,6 +186,7 @@ class Enquiry extends Model {
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
   static final QueryField ISCOMPLETE = QueryField(fieldName: "isComplete");
   static final QueryField NOBEDROOMS = QueryField(fieldName: "noBedrooms");
+  static final QueryField MOVINGDATE = QueryField(fieldName: "movingDate");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Enquiry";
     modelSchemaDefinition.pluralName = "Enquiries";
@@ -206,6 +226,12 @@ class Enquiry extends Model {
       key: Enquiry.NOBEDROOMS,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Enquiry.MOVINGDATE,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.date)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

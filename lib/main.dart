@@ -1,8 +1,11 @@
 // dart async library we will refer to when setting up real time updates
-import 'dart:async';
+
 
 // flutter and ui libraries
+import 'dart:async';
+
 import 'package:amplify_api/amplify_api.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // amplify packages we will need to use
@@ -10,6 +13,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 // import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:intl/intl.dart';
 
 // amplify configuration and models that should have been generated for you
 import 'amplifyconfiguration.dart';
@@ -134,7 +138,7 @@ class _EnquiriesPageState extends State<EnquiriesPage> {
         },
         tooltip: 'Enquire',
         label: Row(
-          children: const [Icon(Icons.add), Text('Add Enquiry')],
+          children: const [Icon(Icons.add), Text('JOB')],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -157,7 +161,7 @@ class EnquiriesList extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         children: enquiries.map((enquiry) => EnquiryItem(enquiry: enquiry)).toList())
         : const Center(
-      child: Text('Tap button below to add a todo!'),
+      child: Text('Tap button below to post your removalist Job!'),
     );
   }
 }
@@ -200,7 +204,9 @@ class EnquiryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Card(
+
       child: InkWell(
         onTap: () {
           _toggleIsComplete();
@@ -208,9 +214,13 @@ class EnquiryItem extends StatelessWidget {
         onLongPress: () {
           _deleteEnquiry(context);
         },
+
         child: Padding(
+
           padding: const EdgeInsets.all(8.0),
+
           child: Row(children: [
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,16 +228,33 @@ class EnquiryItem extends StatelessWidget {
                   Text(
                     enquiry.name,
                     style: const TextStyle(
+
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     enquiry.noBedrooms.toString(),
-
-
                     style: const TextStyle(
-
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
+
+                  // Text(
+                  //   enquiry.movingDate,
+                  //   style: const TextStyle(
+                  //       fontSize: 20, fontWeight: FontWeight.bold),
+                  // ),
+
+                  // Text(
+                  //   enquiry.description,
+                  //   style: const TextStyle(
+                  //
+                  //       fontSize: 20, fontWeight: FontWeight.bold),
+                  // ),
+
+
+
+
+
+
 
                   Text(enquiry.description ?? 'no bedrooms'),
                 ],
@@ -256,17 +283,18 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
   final _nameController = TextEditingController();
   final _noBedroomsController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _movingDateController = TextEditingController();
+  // final myDateTime = DateTime.now();
+  // final myTemporalDate = TemporalDate(myDateTime);
+
 
   Future<void> _saveEnquiry() async {
 
     final name = _nameController.text;
     final noBedrooms = _noBedroomsController.text;
-
-
-
-
-    
+    final movingDate = _movingDateController.text;
     final description = _descriptionController.text;
+    // final myTemporalDate = TemporalDate(myDateTime);
     
 
 
@@ -275,10 +303,17 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
     final newEnquiry = Enquiry(
       name: name,
       noBedrooms: int.tryParse(noBedrooms) ?? 0,
+      // movingDate: movingDate,
+      movingDate: TemporalDate.fromString(movingDate),
+      // datetime: movingDate,
       // noBedrooms: noBedrooms,
+      // movingDate: movingDate,
       description: description.isNotEmpty ? description : null,
       isComplete: false,
+      // movingDate: showDatePicker(context: context, initialDate: DateTime.now(), firstDate: (2000), lastDate: (2101)),
     );
+
+
 
     try {
       // to write data to DataStore, we simply pass an instance of a model to
@@ -299,7 +334,7 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Enquiry'),
+        title: const Text('Post a Job'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -318,7 +353,50 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
                 decoration:
                 const InputDecoration(filled: true, labelText: 'No. Bedrooms'),
               ),
+
               TextFormField(
+                controller: _movingDateController, //editing controller of this TextField
+                decoration: InputDecoration(
+                    icon: Icon(Icons.calendar_today), //icon of text field
+                    labelText: "moving Date" //label text of field
+                ),
+
+
+                readOnly: true,  //set it true, so that user will not able to edit text
+                onTap: () async {
+                  DateTime? _movingDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2101)
+                  );
+
+                  if(_movingDate != null ){
+                    print(_movingDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                    String formattedDate = DateFormat('yyyy-MM-dd').format(_movingDate);
+                    print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                    //you can implement different kind of Date Format here according to your requirement
+
+                    setState(() {
+                      _movingDateController.text = formattedDate; //set output date to TextField value.
+                    });
+                  }else{
+                    print("Date is not selected");
+                  }
+                }),
+
+
+
+
+
+
+
+
+
+
+
+    TextFormField(
                 controller: _descriptionController,
                 decoration: const InputDecoration(
                     filled: true, labelText: 'Description'),
