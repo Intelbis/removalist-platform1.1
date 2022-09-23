@@ -31,7 +31,7 @@ class Enquiry extends Model {
   final String? _name;
   final String? _description;
   final bool? _isComplete;
-  final String? _noBedrooms;
+  final int? _noBedrooms;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -73,7 +73,7 @@ class Enquiry extends Model {
     }
   }
   
-  String get noBedrooms {
+  int get noBedrooms {
     try {
       return _noBedrooms!;
     } catch(e) {
@@ -96,7 +96,7 @@ class Enquiry extends Model {
   
   const Enquiry._internal({required this.id, required name, description, required isComplete, required noBedrooms, createdAt, updatedAt}): _name = name, _description = description, _isComplete = isComplete, _noBedrooms = noBedrooms, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Enquiry({String? id, required String name, String? description, required bool isComplete, required String noBedrooms}) {
+  factory Enquiry({String? id, required String name, String? description, required bool isComplete, required int noBedrooms}) {
     return Enquiry._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
@@ -132,7 +132,7 @@ class Enquiry extends Model {
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("description=" + "$_description" + ", ");
     buffer.write("isComplete=" + (_isComplete != null ? _isComplete!.toString() : "null") + ", ");
-    buffer.write("noBedrooms=" + "$_noBedrooms" + ", ");
+    buffer.write("noBedrooms=" + (_noBedrooms != null ? _noBedrooms!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -140,7 +140,7 @@ class Enquiry extends Model {
     return buffer.toString();
   }
   
-  Enquiry copyWith({String? id, String? name, String? description, bool? isComplete, String? noBedrooms}) {
+  Enquiry copyWith({String? id, String? name, String? description, bool? isComplete, int? noBedrooms}) {
     return Enquiry._internal(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -154,7 +154,7 @@ class Enquiry extends Model {
       _name = json['name'],
       _description = json['description'],
       _isComplete = json['isComplete'],
-      _noBedrooms = json['noBedrooms'],
+      _noBedrooms = (json['noBedrooms'] as num?)?.toInt(),
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
@@ -205,7 +205,7 @@ class Enquiry extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: Enquiry.NOBEDROOMS,
       isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+      ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
