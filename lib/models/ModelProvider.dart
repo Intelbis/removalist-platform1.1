@@ -26,7 +26,7 @@ export 'Enquiry.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "03bdd0c3824c669b9c07a96b49be9e65";
+  String version = "83007f9c67a746c7842c2580448e6cbb";
   @override
   List<ModelSchema> modelSchemas = [Enquiry.schema];
   static final ModelProvider _instance = ModelProvider();

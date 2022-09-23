@@ -227,6 +227,12 @@ class EnquiryItem extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
+                  //
+                  // Text(
+                  //   enquiry.movingDate,
+                  //   style: const TextStyle(
+                  //       fontSize: 20, fontWeight: FontWeight.bold),
+                  // ),
 
 
 
@@ -260,6 +266,9 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
   final _noBedroomsController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _movingDateController = TextEditingController();
+  // final myDateTime = DateTime.now();
+  // final myTemporalDate = TemporalDate(myDateTime);
+
 
   Future<void> _saveEnquiry() async {
 
@@ -275,16 +284,17 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
     final newEnquiry = Enquiry(
       name: name,
       noBedrooms: int.tryParse(noBedrooms) ?? 0,
+      // movingDate: movingDate,
+      movingDate: TemporalDateTime.fromString(movingDate),
+      // datetime: movingDate,
       // noBedrooms: noBedrooms,
       // movingDate: movingDate,
       description: description.isNotEmpty ? description : null,
       isComplete: false,
       // movingDate: showDatePicker(context: context, initialDate: DateTime.now(), firstDate: (2000), lastDate: (2101)),
-
-
-
-
     );
+
+
 
     try {
       // to write data to DataStore, we simply pass an instance of a model to
