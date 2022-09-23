@@ -220,14 +220,14 @@ class EnquiryItem extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  // Text(
-                  //   enquiry.noBedrooms,
-                  //
-                  //
-                  //   style: const TextStyle(
-                  //
-                  //       fontSize: 20, fontWeight: FontWeight.bold),
-                  // ),
+                  Text(
+                    enquiry.noBedrooms.toString(),
+
+
+                    style: const TextStyle(
+
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
 
                   Text(enquiry.description ?? 'no bedrooms'),
                 ],
