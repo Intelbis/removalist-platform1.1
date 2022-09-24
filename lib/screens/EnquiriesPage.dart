@@ -38,10 +38,10 @@ class _EnquiriesPageState extends State<EnquiriesPage> {
   List<Enquiry> _enquiries = [];
 
   // amplify plugins
-  final _dataStorePlugin =
-      AmplifyDataStore(modelProvider: ModelProvider.instance);
-  final AmplifyAPI _apiPlugin = AmplifyAPI();
-  final AmplifyAuthCognito _authPlugin = AmplifyAuthCognito();
+  // final _dataStorePlugin =
+  //     AmplifyDataStore(modelProvider: ModelProvider.instance);
+  // final AmplifyAPI _apiPlugin = AmplifyAPI();
+  // final AmplifyAuthCognito _authPlugin = AmplifyAuthCognito();
 
   @override
   void initState() {
@@ -59,7 +59,7 @@ class _EnquiriesPageState extends State<EnquiriesPage> {
 
   Future<void> _initializeApp() async {
     // configure Amplify
-    await _configureAmplify();
+    // await _configureAmplify();
 
     // Query and Observe updates to Todo models. DataStore.observeQuery() will
     // emit an initial QuerySnapshot with a list of Todo models in the local store,
@@ -78,23 +78,23 @@ class _EnquiriesPageState extends State<EnquiriesPage> {
     // to be filled in a later step
   }
 
-  Future<void> _configureAmplify() async {
-    try {
-      // add Amplify plugins
-      await Amplify.addPlugins([_dataStorePlugin, _apiPlugin, _authPlugin]);
-
-      // configure Amplify
-      //
-      // note that Amplify cannot be configured more than once!
-      await Amplify.configure(amplifyconfig);
-    } catch (e) {
-      // error handling can be improved for sure!
-      // but this will be sufficient for the purposes of this tutorial
-      print('An error occurred while configuring Amplify: $e');
-    }
-
-    // to be filled in a later step
-  }
+  // Future<void> _configureAmplify() async {
+  //   try {
+  //     // add Amplify plugins
+  //     await Amplify.addPlugins([_dataStorePlugin, _apiPlugin, _authPlugin]);
+  //
+  //     // configure Amplify
+  //     //
+  //     // note that Amplify cannot be configured more than once!
+  //     await Amplify.configure(amplifyconfig);
+  //   } catch (e) {
+  //     // error handling can be improved for sure!
+  //     // but this will be sufficient for the purposes of this tutorial
+  //     print('An error occurred while configuring Amplify: $e');
+  //   }
+  //
+  //   // to be filled in a later step
+  // }
 
   @override
   Widget build(BuildContext context) {
