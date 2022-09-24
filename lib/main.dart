@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // amplify configuration and models that should have been generated for you
-import 'models/screens/EnquiriesPage.dart';
+import 'screens/EnquiriesPage.dart';
 
 
 
