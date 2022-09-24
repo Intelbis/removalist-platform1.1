@@ -18,6 +18,8 @@ import 'package:intl/intl.dart';
 // amplify configuration and models that should have been generated for you
 import '../../amplifyconfiguration.dart';
 import '../models/ModelProvider.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+
 
 class EnquiriesPage extends StatefulWidget {
   const EnquiriesPage({Key? key}) : super(key: key);
@@ -98,7 +100,8 @@ class _EnquiriesPageState extends State<EnquiriesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Enquiries'),
+
+        title: const Text('Enquiries'),backgroundColor: Color(0xFF2482D5),
       ),
       // body: const Center(child: CircularProgressIndicator()),
       body: _isLoading
@@ -113,9 +116,11 @@ class _EnquiriesPageState extends State<EnquiriesPage> {
         },
         tooltip: 'Enquire',
         label: Row(
-          children: const [Icon(Icons.add), Text('JOB')],
+
+          children:  [Icon(Icons.add), Text('JOB')],
         ),
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -179,6 +184,7 @@ class EnquiryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Color(0xFFB6DDF0 ),
       child: InkWell(
         onTap: () {
           _toggleIsComplete();
@@ -294,7 +300,7 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
   final _noBedroomsController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _movingDateController = TextEditingController();
-  // final _dismantlingController = TextEditingController();
+  final _dismantlingRequiredController = TextEditingController();
 
   // final _dismantlingList = ['yes', 'no'];
   //
@@ -303,10 +309,10 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
   // String? _selectedVal = "";
 
 
-  final _dismantlingList = ["Yes", "No"];
-
-  String? _selectedVal = "";
-
+  // final _dismantlingRequired = ["Yes", "No"];
+  //
+  // String? _selectedVal = "";
+  //
 
 
 
@@ -318,6 +324,7 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
     final noBedrooms = _noBedroomsController.text;
     final movingDate = _movingDateController.text;
     final description = _descriptionController.text;
+    final dismantlingRequired = _dismantlingRequiredController;
 
 
     // final dismantling = _dismantlingController.text;
@@ -338,6 +345,9 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
       // movingDate: movingDate,
       description: description.isNotEmpty ? description : null,
       isComplete: false,
+      // dismantlingRequired: dismantlingRequired,
+
+
       // movingDate: showDatePicker(context: context, initialDate: DateTime.now(), firstDate: (2000), lastDate: (2101)),
     );
 
@@ -368,42 +378,83 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
             children: [
               TextFormField(
 
+
                 controller: _nameController,
                 decoration:
                     const InputDecoration(filled: true, labelText: 'Name'),
               ),
 
+              DropdownSearch<String>(
 
-
-
-              
-
-
-
-
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: DropdownButtonFormField(
-
-                  value: _selectedVal,
-
-                  items: _dismantlingList.map(
-
-                          (e) => DropdownMenuItem(child: Text(e), value: e,)
-                  ).toList(),
-                  onChanged: (val) {
-                    setState(() {
-                      _selectedVal = val as String;
-                    });
-                  },
-
-                  decoration: InputDecoration(
-
-                    labelText: "Dismantle required?",
+                popupProps: PopupProps.menu(
+                  searchFieldProps: TextFieldProps(
+                    controller: _dismantlingRequiredController,
                   ),
 
+
+                  showSelectedItems: true,
+                  // disabledItemFn: (String s) => s.startsWith('I'),
                 ),
+
+
+                items: ["Yes", "No"],
+                dropdownDecoratorProps: DropDownDecoratorProps(
+
+                  dropdownSearchDecoration: InputDecoration(
+
+                    labelText: "Menu mode",
+                    hintText: "Do require dismantling services?",
+                  ),
+                ),
+                onChanged: print,
+                selectedItem: "Yes",
               ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              //
+              // Padding(
+              //
+              //
+              //   padding: const EdgeInsets.all(10.0),
+              //
+              //   child: DropdownButtonFormField(
+              //
+              //
+              //     // value: _selectedVal,
+              //
+              //     items: _dismantlingRequired.map(
+              //
+              //
+              //             (e) => DropdownMenuItem(child: Text(e), value: e,)
+              //     ).toList(),
+              //     onChanged: (val) {
+              //       setState(() {
+              //         _selectedVal = val as String;
+              //       });
+              //     },
+              //
+              //     decoration: InputDecoration(
+              //
+              //       labelText: "Dismantle required?",
+              //     ),
+              //
+              //   ),
+              //
+              //
+              // ),
 
 
 
@@ -432,6 +483,18 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
 
 
 
+              // DropdownSearch<String>.multiSelection(
+              //   items: ["Brazil", "Italia (Disabled)", "Tunisia", 'Canada'],
+              //   popupProps: PopupPropsMultiSelection.menu(
+              //     showSelectedItems: true,
+              //     disabledItemFn: (String s) => s.startsWith('I'),
+              //   ),
+              //   onChanged: print,
+              //   selectedItems: ["Brazil"],
+              // )
+
+
+
 
               TextFormField(
 
@@ -440,6 +503,9 @@ class _AddEnquiryFormState extends State<AddEnquiryForm> {
                 decoration: const InputDecoration(
                     filled: true, labelText: 'No. Bedrooms'),
               ),
+
+
+
               Padding(
                 padding: const EdgeInsets.only(left: 12.5),
                 child: TextFormField(

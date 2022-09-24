@@ -36,6 +36,7 @@ dependencies:
   amplify_auth_cognito: ^0.6.0
   convert: ^3.0.2
   dropdownfield: ^1.0.3
+  dropdown_search: ^5.0.3
 
 
 
