@@ -175,6 +175,7 @@ class EnquiryItem extends StatelessWidget {
   final double iconSize = 24.0;
   final Enquiry enquiry;
 
+
   void _deleteEnquiry (BuildContext context) async {
 
     try {
@@ -237,11 +238,20 @@ class EnquiryItem extends StatelessWidget {
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
 
+                  Text(
+                    enquiry.movingDate.toString(),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+
+
+
                   // Text(
-                  //   enquiry.movingDate,
-                  //   style: const TextStyle(
-                  //       fontSize: 20, fontWeight: FontWeight.bold),
+                  //   DateFormat('yyyy-MM-dd').format(movingDate.getDatateTime())
                   // ),
+                    // style: const TextStyle(
+                    //     fontSize: 20, fontWeight: FontWeight.bold),
+
 
                   // Text(
                   //   enquiry.description,
